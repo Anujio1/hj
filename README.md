@@ -1,8 +1,5 @@
 # landingPage
 Shadcn Landing Page
-## Deploy To Cloudflare (Easy Way)
-
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Anujtemp/owebdevs.github.io)
 ### Deploy to Cloudflare Workers
 
 1. Create a `wrangler.toml` file in the root directory with the following configuration:
@@ -18,3 +15,7 @@ Shadcn Landing Page
     route = "your_domain.com/*"
     zone_id = "your_zone_id"
     ```
+## Deploy To Cloudflare (Easy Way)
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Anujtemp/owebdevs.github.io)
+
