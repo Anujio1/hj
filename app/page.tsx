@@ -32,7 +32,7 @@ export default function Home() {
       <div className="relative z-10 container mx-auto px-4 py-12">
         <h1 className="text-center mb-12">
           <span className="font-mono text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 pixel-font">
-            Weather Station v1.0
+           anu Weather Station v1.0
           </span>
         </h1>
 

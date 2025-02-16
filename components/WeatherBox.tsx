@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState, useEffect } from "react"
-import { Cloud, Sun, CloudRain, Snowflake } from "lucide-react"
+import type React from "react";
+import { useState, useEffect } from "react";
+import { Cloud, Sun, CloudRain, Snowflake } from "lucide-react";
 
 export default function WeatherBox() {
-  const [weather, setWeather] = useState<any>(null)
-  const [city, setCity] = useState<string>("")
-  const [inputCity, setInputCity] = useState<string>("")
+  const [weather, setWeather] = useState<any>(null);
+  const [city, setCity] = useState<string>("");
+  const [inputCity, setInputCity] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords
-        const weather = await fetchWeather(latitude, longitude)
-        setWeather(weather)
-        setCity(weather.name)
-      })
+        const { latitude, longitude } = position.coords;
+        const weather = await fetchWeatherByCoords(latitude, longitude);
+        setWeather(weather);
+        setCity(weather.location.name);
+      });
     }
-  }, [])
+  }, []);
 
   const fetchWeather = async (cityName: string) => {
     try {
-      const apiKey = process.env.91195e1ea1fd4e26873150128251602;
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY; // Update this line
       const response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(cityName)}&aqi=no`
       );
@@ -39,7 +39,20 @@ export default function WeatherBox() {
       setWeather(null);
     }
   };
-  
+
+  const fetchWeatherByCoords = async (latitude: number, longitude: number) => {
+    try {
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY; // Update this line
+      const response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}&aqi=no`
+      );
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      console.error("Error fetching weather data by coordinates:", err);
+      return null;
+    }
+  };
 
   const handleCitySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,37 +60,35 @@ export default function WeatherBox() {
     await fetchWeather(inputCity);
     setInputCity("");
   };
-   
 
   const getWeatherIcon = (condition: string) => {
     switch (condition?.toLowerCase()) {
       case "clear":
-        return <Sun className="w-12 h-12 text-yellow-400 animate-pulse" />
+        return <Sun className="w-12 h-12 text-yellow-400 animate-pulse" />;
       case "clouds":
-        return <Cloud className="w-12 h-12 text-gray-400 animate-bounce" />
+        return <Cloud className="w-12 h-12 text-gray-400 animate-bounce" />;
       case "rain":
-        return <CloudRain className="w-12 h-12 text-blue-400 animate-bounce" />
+        return <CloudRain className="w-12 h-12 text-blue-400 animate-bounce" />;
       case "snow":
-        return <Snowflake className="w-12 h-12 text-white animate-spin" />
+        return <Snowflake className="w-12 h-12 text-white animate-spin" />;
       default:
-        return <Sun className="w-12 h-12 text-yellow-400 animate-pulse" />
+        return <Sun className="w-12 h-12 text-yellow-400 animate-pulse" />;
     }
-  }
+  };
 
   return (
     <div className="pixel-border bg-[#1a1b3b] p-6 text-white">
       <h2 className="text-2xl font-bold mb-4 pixel-font text-center">Weather Status</h2>
       {weather && (
-  <div className="text-center space-y-4">
-    <div className="flex justify-center">
-      {getWeatherIcon(weather.current.condition.text)}
-    </div>
-    <p className="text-xl font-bold">{city}</p>
-    <p className="text-3xl font-bold">{Math.round(weather.current.temp_c)}°C</p>
-    <p className="text-blue-400">{weather.current.condition.text}</p>
-  </div>
-)}
-
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            {getWeatherIcon(weather.current.condition.text)}
+          </div>
+          <p className="text-xl font-bold">{city}</p>
+          <p className="text-3xl font-bold">{Math.round(weather.current.temp_c)}°C</p>
+          <p className="text-blue-400">{weather.current.condition.text}</p>
+        </div>
+      )}
       <form onSubmit={handleCitySubmit} className="mt-4 space-y-2">
         <input
           type="text"
@@ -93,6 +104,7 @@ export default function WeatherBox() {
           Search
         </button>
       </form>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
-  )
+  );
 }
