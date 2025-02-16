@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import WeatherBox from "../components/WeatherBox"
-import ClockBox from "../components/ClockBox"
-import QuoteBox from "../components/QuoteBox"
-import { Star } from "../components/Star"
+import { useState, useEffect } from "react";
+import WeatherBox from "../components/WeatherBox";
+import ClockBox from "../components/ClockBox";
+import QuoteBox from "../components/QuoteBox";
+import { Star } from "../components/Star";
 
 export default function Home() {
-  const [stars, setStars] = useState<{ x: number; y: number; delay: number }[]>([])
+  const [stars, setStars] = useState<{ x: number; y: number; delay: number }[]>([]);
 
   useEffect(() => {
     // Create random stars
@@ -15,9 +15,9 @@ export default function Home() {
       x: Math.random() * 100,
       y: Math.random() * 100,
       delay: Math.random() * 2,
-    }))
-    setStars(newStars)
-  }, [])
+    }));
+    setStars(newStars);
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#0a0b1e] relative overflow-hidden">
@@ -32,11 +32,7 @@ export default function Home() {
       <div className="relative z-10 container mx-auto px-4 py-12">
         <h1 className="text-center mb-12">
           <span className="font-mono text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 pixel-font">
-<<<<<<< HEAD
-           anu Weather Station v1.0
-=======
-          anu  Weather Station v1.0
->>>>>>> 84c1723e9cbb13f9e0c6dc66834d48d883b3063a
+            anu Weather Station v1.0
           </span>
         </h1>
 
@@ -47,6 +43,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  )
+  );
 }
-
