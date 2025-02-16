@@ -4,7 +4,8 @@ Shadcn Landing Page
 
 1. Create a `wrangler.toml` file in the root directory with the following configuration:
 
-    ``` type = "javascript"
+    ```toml
+     type = "javascript"
 account_id = "id" ### On The Dashboard Workers & Pages
 workers_dev = true
 
