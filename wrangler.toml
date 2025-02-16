@@ -1,0 +1,6 @@
+type = "javascript"
+account_id = "d2ad4f51e7ccf8d8e7864cc736a3d905"
+workers_dev = true
+
+[site]
+bucket = "./out"
