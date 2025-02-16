@@ -4,16 +4,12 @@ Shadcn Landing Page
 
 1. Create a `wrangler.toml` file in the root directory with the following configuration:
 
-    ```toml
-    name = "my-v0-project"
-    type = "webpack"
-    account_id = "your_cloudflare_account_id" ### On The Dashboard Workers & Pages
-    workers_dev = true
-    compatibility_date = "2025-02-16"
+    ``` type = "javascript"
+account_id = "id" ### On The Dashboard Workers & Pages
+workers_dev = true
 
-    [env.production]
-    route = "your_domain.com/*"
-    zone_id = "your_zone_id"
+[site]
+bucket = "./out"
     ```
 ## Deploy To Cloudflare (Easy Way)
 
